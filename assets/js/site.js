@@ -7,6 +7,12 @@
   const menu = document.querySelector("[data-menu]");
 
   const productById = (id) => store.products.find((product) => product.id === id);
+  document.querySelectorAll("[data-product-image]").forEach((image) => {
+    const product = productById(image.dataset.productImage);
+    if (!product?.image) return;
+    image.src = siteHref(product.image);
+    image.alt = `${product.name} ${product.size} pack`;
+  });
   const formatPrice = (price) => new Intl.NumberFormat("en-IN", {
     style: "currency", currency: store.currency || "INR", maximumFractionDigits: 0
   }).format(price);
